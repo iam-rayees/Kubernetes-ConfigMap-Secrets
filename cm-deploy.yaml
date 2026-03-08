@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: newnginx
+spec:
+  selector:
+    matchLabels:
+      app: newnginx
+  template:
+    metadata:
+      labels:
+        app: newnginx
+    spec:
+      containers:
+        - name: newnginx
+          image: rayeez/cloud-spectrum-master:v1
+          ports:
+            - containerPort: 9999
+          volumeMounts:
+            - mountPath: "/etc/nginx/conf.d/"
+              name: nginxconfvol
+      volumes:
+        - name: nginxconfvol
+          configMap:
+            name: default.conf
+
+# ku create configmap default.conf --from-file=default.conf
+# ku describe cm default.conifg 

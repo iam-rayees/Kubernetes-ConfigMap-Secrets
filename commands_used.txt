@@ -1,0 +1,184 @@
+# commands used inside the pod
+aws s3 ls
+env
+aws ec2 describe-instances | jq
+env | grep -i aws
+aws ec2 describe-instances --region us-east-1 --output json | jq -r '.Reservations[].Instances[].InstanceId'
+
+
+---
+# commands used in management server
+docker pull rayeez/troubleshootingtools:v2
+docker tag rayeez/troubleshootingtools:v2 rayeez/configsecrets:v1
+docker login
+docker push rayeez/configsecrets:v1 
+docker push docker.io/rayeez/configsecrets:v1 
+docker login
+docker login -u rayeez
+docker push rayeez/configsecrets:v1 \
+docker push rayeez/configsecrets:v1
+ku create deployment app1 --image rayeez/configsecrets:v1 --replicas 3 --dry-run -o yaml
+kops export kubeconfig --name cloudrayeez.xyz --admin
+ku create deployment app1 --image rayeez/configsecrets:v1 --replicas 3 --dry-run -o yaml
+echo '
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app1
+  name: app1
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app1
+  template:
+    metadata:
+      labels:
+        app: app1
+    spec:
+      containers:
+        - image: rayeez/configsecrets:v1
+          name: configsecret ' | ku apply -f -
+ku get pods
+ku describe pods
+mkdir registry
+cd registry/
+kubectl create secret docker-registry docker-pwd \ 
+--docker-server=docker.io --docker-username=rayeez --docker-password=XXXXXXXXXXXXXXXX --docker-email=mohdrayees1234@gmail.com
+--docker-server=docker.io --docker-username=rayeez --docker-password=XXXXXXXXXXXXXXXX --docker-email=mohdrayees1234@gmail.comkubectl get secrets
+kubectl get secrets
+kubectl create secret docker-registry docker-pwd \ 
+--docker-server=docker.io --docker-username=rayeez --docker-password=XXXXXXXXXXXXXXXXX --docker-email=mohdrayees1234@gmail.com
+kubectl create secret docker-registry -h
+kubectl create secret docker-registry docker-pwd --docker-server=docker.io --docker-username=rayeez --docker-password=XXXXXXXXXXXXXXX --docker-email=mohdrayees1234@gmail.com
+ku get secrets 
+ku describe secrets
+ku get deploy
+ku delete deploy app1
+ku get deploy
+echo '
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app1
+  name: app1
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app1
+  template:
+    metadata:
+      labels:
+        app: app1
+    spec:
+      containers:
+        - image: rayeez/configsecrets:v1
+          name: configsecrets
+      imagePullSecrets:
+        - name: docker-pwd' | ku apply -f -
+ku get pods
+ku exec -it app1-775cfbb8dd-dsvh8 -- bash
+ku delete deploy app1
+cd ..
+mkdir generic
+cd generic/
+ls
+echo '
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app1
+  name: app1
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app1
+  template:
+    metadata:
+      labels:
+        app: app1
+    spec:
+      containers:
+        - image: rayeez/troubleshootingtools:v2
+          name: configsecrets ' | ku apply -f -
+ku get pods
+ku exec -it app1-848479ffff-5w68h -- bash
+ku delete deploy app1
+ku get pods
+kubectl create secret generic db-user --from-literal=username=devuser
+kubectl create secret generic db-pass --from-literal=password='S!B\*d$zDsb='
+ku get secrets
+ku sdescribe secrets db-pass db-user
+ku describe secrets db-pass db-user
+kubectl get secret db-user -o jsonpath="{.data.username}" | base64 --decode
+kubectl get secret db-pass -o jsonpath="{.data.password}" | base64 --decode
+echo -n  | base64
+echo -n  | base64
+ku get pods
+echo "
+echo '
+ls
+nano deployment.yml
+ku get pods
+ku apply -f deployment.yml 
+ku get pods
+ku get secrets
+ku describe secrets aws-access-keys
+ku get pods
+ku exec -it awscli-deployment-59c878bdfd-jmqp6 -- bash
+ku get secrets
+ku get deploy
+ku delete deploy awscli-deployment
+ku get deploy
+ku get secrets
+ku get deploy
+cd ..
+mkdir file-mount
+cd file-mount/
+ls
+nano fileMount.yaml
+ku apply -f fileMount.yaml 
+ku get pods
+ku get secrets
+ku describe descrets aws-creds-in-file
+ku describe secrets aws-creds-in-file
+ku exec -it secret-test-pod-1 -- bash
+ku delete -file
+ku delete -f fileMount.yaml 
+echo "" > fileMount.yaml 
+nano fileMount.yaml
+cat fileMount.yaml 
+ku apply -f fileMount.yaml 
+ku get pods
+ku describe secrets aws-creds-in-file
+ku get pods
+ku exec -it secret-test-pod-1
+ku exec -it secret-test-pod-1 -- bash
+ku delete -f fileMount.yaml 
+ls
+cd ..
+mkdir configMaps
+cd configMaps/
+nano default.conf
+cd configMaps/
+ls
+nano deployment.yaml
+ku apply -f deployment.yaml 
+ku get pods
+kubectl event
+kubectl events
+ku create configmap default.conf --from-file=default.conf
+ku get cm
+ku get pods
+ku describe cm default.conifg
+ku describe cm default.conf
+ku get pods
+kubectl events
+ku expose deployment newnginx --port 80 --target-port 9999 --type NodePort
+ku get svc
+ku get svc -o wide
